@@ -1,14 +1,18 @@
 const config = require("../config/auth.config");
 const { v4: uuidv4 } = require("uuid");
-module.exports = (sequelize, Sequelize) => {
+const { DataTypes } = require('sequelize');
+// Exportamos una funcion que define el modelo
+// Luego le injectamos la conexion a sequelize.
+module.exports = (sequelize) => {
   const RefreshToken = sequelize.define("refreshToken", {
     token: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     expiryDate: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     },
   });
+
   RefreshToken.createToken = async function (user) {
     let expiredAt = new Date();
     expiredAt.setSeconds(expiredAt.getSeconds() + config.jwtRefreshExpiration);
@@ -20,8 +24,10 @@ module.exports = (sequelize, Sequelize) => {
     });
     return refreshToken.token;
   };
+
   RefreshToken.verifyExpiration = (token) => {
     return token.expiryDate.getTime() < new Date().getTime();
   };
+  
   return RefreshToken;
 };

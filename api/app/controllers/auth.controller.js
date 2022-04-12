@@ -1,8 +1,6 @@
-const db = require("../models/index");
 const Op = require("sequelize").Op;
 const config = require("../config/auth.config");
-const User = db.user;
-const Role = db.role;
+const { User, Role, RefreshToken } = require("../config/db.config");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 

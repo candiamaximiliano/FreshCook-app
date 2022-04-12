@@ -1,6 +1,5 @@
-const db = require("../models");
-const ROLES = db.ROLES;
-const User = db.user;
+const ROLES = ["user", "admin", "moderator"];
+const { User } = require("../config/db.config");
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   //Username
   User.findOne({

@@ -1,25 +1,31 @@
+const express = require('express');
+const { Router } = require('express');
 const { verifySignUp } = require("../middlewares");
 const controller = require("../controllers/auth.controller");
 const veryfySignUp = require("../middlewares/verifySignUp");
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
-  app.post(
-    "/api/auth/signup",
-    [
-      veryfySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
-    ],
-    controller.signup
-  );
-  
-  app.post("/api/auth/signin", controller.singin);
+// Importar todos los routers;
+// Ejemplo: const authRouter = require('./auth.js');
 
-  app.post("/api/auth/refreshtoken", controller.refreshToken);
-};
+const router = Router();
+
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
+router.use(express.json());
+
+router.post("/signup",
+  [
+    veryfySignUp.checkDuplicateUsernameOrEmail,
+    verifySignUp.checkRolesExisted
+  ],
+  controller.signup
+);
+
+router.post("/signin", controller.signin);
+
+router.post("/refreshtoken", controller.refreshToken);
+
+
+module.exports = router;
+  
+  

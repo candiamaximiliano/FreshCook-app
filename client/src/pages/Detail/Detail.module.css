@@ -1,0 +1,104 @@
+.detailContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.5em;
+  margin: 15px;
+}
+
+.imageRecipe {
+  border-radius: 10px;
+  width: 50%;
+}
+
+.subtitleContainer {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  margin: 10px;
+  width: 100%;
+}
+
+.subtitle {
+  margin: 0px 0px 0px 20px;
+  font-size: 0.9em;
+}
+
+.parragraphContainer{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.parragraph{
+  text-align: justify;
+  font-size: 0.8em;
+  margin: 0px 30px;
+}
+
+.uList{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 80px;
+}
+
+.dishItem{
+  list-style: none;
+}
+
+.stepsList{
+  list-style-type: decimal;
+  margin: 0px 30px;
+}
+
+.step{
+  margin: 20px 5px;
+  text-align: justify;
+  font-size: 0.7em;
+}
+
+.logoSection {
+  display: flex;
+  width: 70%;
+  height: 50%;
+  margin: 10px;
+  justify-content: space-around;
+}
+
+.logo {
+  width: 20%;
+  margin: 10px 0px;
+}
+
+.dietsList{
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.dietItem{
+  list-style-type: square;
+  margin: 5px 30px;
+  font-size: 0.7em;
+}
+
+.goBackContainer {
+  display: flex;
+  width: 100%;
+}
+
+.goBack {
+  font-size: 1em;
+  margin-left: 20px;
+}

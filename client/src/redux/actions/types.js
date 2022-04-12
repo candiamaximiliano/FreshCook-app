@@ -1,0 +1,17 @@
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGOUT = "LOGOUT";
+export const SET_MESSAGE = "SET_MESSAGE";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+export const REFRESH_TOKEN = "REFRESH_TOKEN";
+export const GET_ALL_RECIPES = 'GET_ALL_RECIPES';
+export const FILTER_BY_DIETS = 'FILTER_BY_DIETS';
+export const FILTER_CREATED = 'FILTER_CREATED';
+export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const ORDER_BY_SCORE = 'ORDER_BY_SCORE';
+export const GET_NAME_RECIPES = 'GET_NAME_RECIPES';
+export const GET_DIETS = 'GET_DIETS';
+export const POST_RECIPE = 'POST_RECIPE';
+export const GET_DETAIL = 'GET_DETAIL';

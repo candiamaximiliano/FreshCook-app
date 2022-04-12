@@ -1,0 +1,55 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95vw;
+  height: 100%;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 5%;
+}
+
+.newRecipeButtonContainer{
+  display: flex;
+  background-color: black;
+  width: auto;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.newRecipeButton{
+  border: none;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.reloadButton {
+  border: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  margin: 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cardsContainer {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 20px;
+}
+

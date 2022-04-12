@@ -1,0 +1,41 @@
+.container {
+  background-color: beige;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  padding: 5px;
+  height: 250px;
+}
+
+.title {
+  font-size: 0.8em;
+  text-align: center;
+  margin: 10px;
+}
+
+.image {
+  border-radius: 10px;
+  width: 200px;
+  margin: 10px;
+}
+
+.score {
+  text-decoration: none;
+  font-size: 0.5em;
+}
+
+.listDiets {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 0.5em;
+}
+
+.diet {
+  margin: 2px;
+}

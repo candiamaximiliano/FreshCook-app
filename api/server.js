@@ -1,25 +1,8 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const app = express();
-var corsOptions = {
-  origin: "http:localhost:8081"
-};
+const config = require('./app/config/index');
+const server = require('./app/config/app.config');
+const { conn } = require('./app/config/db.config');
 
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse request of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-const db = require("./app/models");
-const Role = db.role;
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync Db');
-  initial();
-});
+const { Role } = require("./app/config/db.config");
 
 function initial() {
   Role.create({
@@ -38,18 +21,13 @@ function initial() {
   });
 }
 
-//simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Fresh Cook App API." });
-});
-
-// routes
-
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
-
-// set port, listen for request
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+// Syncing all the models at once.
+conn.sync({ force: true }).then(() => {
+  server.listen(config.port, () => {
+    initial();
+    console.log(`
+    ################################################
+          🛡️  Server listening on port: ${config.port} 🛡️
+    ################################################`); // eslint-disable-line no-console
+  });
 });

@@ -1,13 +1,17 @@
-module.exports = (sequelize, Sequelize) => {
-  const User = sequelize.define("users", {
+const { DataTypes } = require('sequelize');
+// Exportamos una funcion que define el modelo
+// Luego le injectamos la conexion a sequelize.
+module.exports = (sequelize) => {
+  // defino el modelo
+  const User = sequelize.define('user', {
     username: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     email: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     password: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     }
   });
   return User;
