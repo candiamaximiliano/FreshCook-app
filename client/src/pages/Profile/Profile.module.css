@@ -1,0 +1,49 @@
+.card {
+  margin: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 30%;
+  height: 70%;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  width: 100px;
+  margin: 10px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -80px;
+}
+
+.username {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.email {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  margin-top: -40px;
+}

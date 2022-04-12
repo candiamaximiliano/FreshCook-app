@@ -13,6 +13,7 @@ import Detail from "../../pages/Detail/Detail";
 import { getAllRecipes } from "../../redux/actions/recipes";
 
 import Styles from "./Home.module.css";
+import reloadIcon from "../../images/autorenew_white_24dp.svg";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -49,12 +50,22 @@ const Home = () => {
     dispatch(getAllRecipes());
   };
 
+  const helper = (arr) => {
+    let result = [];
+    arr?.map((el) => {
+      console.log("hola soy diet del helpermap" + el);
+      return result.push(el.name);
+    });
+    console.log("hola soy result" + result);
+    return result;
+  };
+
   return (
     <div className={Styles.homeContainer}>
       <div className={Styles.navContainer}>
         <div className={Styles.newRecipeButtonContainer}>
           <Link to="/recipe">
-            <p className={Styles.newRecipeButton}>+</p>
+            <p className={Styles.newRecipeButton}>Create Your Own Recipe!</p>
           </Link>
         </div>
         <SearchBar />
@@ -64,7 +75,11 @@ const Home = () => {
             handlerClick(e);
           }}
         >
-          R
+          <img
+            className={Styles.reloadIcon}
+            src={reloadIcon}
+            alt="reloadIcon"
+          />
         </button>
       </div>
       <div className={Styles.filters}>
@@ -80,20 +95,39 @@ const Home = () => {
       />
       <div className={Styles.cardsContainer}>
         {currentRecipes?.map((recipe, index) => {
-          return (
-            <div key={index} className={Styles.cardRecipe}>
-              <Link key={recipe.id} to={"/home/" + recipe.id}>
-                <Card
-                  key={recipe.id}
-                  id={recipe.id}
-                  name={recipe.name}
-                  image={recipe.image}
-                  score={recipe.score}
-                  diets={recipe.diets}
-                />
-              </Link>
-            </div>
-          );
+          if (recipe.createdInDb) {
+            return (
+              <div key={index} className={Styles.cardRecipe}>
+                <Link key={index} to={"/home/" + recipe.id}>
+                  <Card
+                    key={recipe.id}
+                    id={recipe.id}
+                    name={recipe.name}
+                    image={recipe.image}
+                    score={recipe.score}
+                    diets={helper(recipe.diets)}
+                  />
+                </Link>
+              </div>
+            );
+          } else {
+            return (
+              <div key={index} className={Styles.cardRecipe}>
+                <Link key={index} to={"/home/" + recipe.id}>
+                  <Card
+                    key={recipe.id}
+                    id={recipe.id}
+                    name={recipe.name}
+                    image={recipe.image}
+                    score={recipe.score}
+                    diets={recipe.diets?.map((diet) => {
+                      return diet;
+                    })}
+                  />
+                </Link>
+              </div>
+            );
+          }
         })}
       </div>
     </div>

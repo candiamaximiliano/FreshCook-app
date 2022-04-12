@@ -1,3 +1,4 @@
+
 .app-container {
   flex-direction: column;
   display: flex;
@@ -7,16 +8,23 @@
 
 .navbar {
   align-items: center;
-  background-color: firebrick;
+  background-color: #ee93a4;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  box-shadow: 0px 2px 40px;
 }
 
 .navigation {
+  display: flex;
+  justify-content: space-between;
   text-decoration: none;
   margin: 15px;
   color: black;
+}
+
+.accountCircle {
+  margin-right: 5px;
 }
 
 .logoNav-container{
@@ -25,9 +33,28 @@
   justify-content: center;
 }
 
+.freshCookLogo{
+  width: 40%;
+  margin-left: 10px;
+
+}
+
 .access-container {
   display: flex;
-  align-items: center;
-  justify-content: end;
+  align-items: initial;
+  justify-content: flex-end;
   list-style: none;
+}
+
+.item-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #000000;
+  text-decoration: none;
 }

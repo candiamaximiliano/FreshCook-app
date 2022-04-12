@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions/auth";
 
-import Styles from "./Login.module.css";
+import loginStyles from "./Login.module.css";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
@@ -30,18 +29,14 @@ const Login = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
-    if (/* Object.keys(errors).length > 0 */ true) {
-      dispatch(login(username, password))
-        .then(() => {
-          navigate("/home");
-          window.location.reload();
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
+    dispatch(login(username, password))
+      .then(() => {
+        navigate("/home");
+        window.location.reload();
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   if (isLoggedIn) {
@@ -49,43 +44,46 @@ const Login = (props) => {
   }
 
   return (
-    <div className={Styles.loginContainer}>
-      <div className={Styles.loginProfilePictureContainer}>
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className={Styles.loginProfilePicture}
-        />
-      </div>
-      <form className={Styles.formLogin} onSubmit={handleLogin}>
-        <div className={Styles.inputLoginContainer}>
+    <div className={loginStyles.loginBody}>
+      <form className={loginStyles.loginForm} onSubmit={handleLogin}>
+        <div className={loginStyles.loginTitle}>Welcome</div>
+        <div className={loginStyles.loginSubtitle}>
+          Let's create your account!
+        </div>
+        <div className={loginStyles.loginInputContainerIc1}>
           <input
-            className={Styles.inputLogin}
+            id="username"
+            className={loginStyles.loginInput}
             type="text"
             name="username"
             value={username}
             onChange={onChangeUsername}
-            placeholder="Enter your username"
-            // validations={[required]}
+            placeholder="Username"
+            autoComplete="off"
           />
+          <div className={loginStyles.loginCut}></div>
         </div>
-        <div className={Styles.inputLoginContainer}>
+        <div className={loginStyles.loginInputContainerIc2}>
           <input
-            className={Styles.inputLogin}
+            id="password"
+            className={loginStyles.loginInput}
             type="password"
             name="password"
             value={password}
             onChange={onChangePassword}
-            placeholder="Enter your password"
-            // validations={[required]}
+            placeholder="Password"
+            autoComplete="off"
           />
+          <div className={loginStyles.loginCut}></div>
         </div>
-        <div>
-          <button className={Styles.loginButton} disabled={loading}>
-            {loading && <span></span>}
-            <span>Login</span>
-          </button>
-        </div>
+        <button
+          type="text"
+          className={loginStyles.loginSubmit}
+          disabled={loading}
+        >
+          {loading && <span></span>}
+          <span>Sign In</span>
+        </button>
         {message && (
           <div>
             <div role="alert">{message}</div>

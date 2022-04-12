@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { orderByName } from "../../redux/actions/filters";
-import Styles from "./Filter.module.css";
+import filterStyles from "./Filter.module.css";
 
 export default function FilterbyAlphabet({ setCurrentPage, setOrder }) {
   const dispach = useDispatch();
@@ -19,13 +19,23 @@ export default function FilterbyAlphabet({ setCurrentPage, setOrder }) {
       }}
       name="filterAZ"
       id="filterAZ"
-      className={Styles.filter}
+      className={filterStyles.nameFilter}
     >
-      <option selected="true" disabled="disabled">
-        Order A-Z
+      <option
+        defaultValue={true}
+        disabled="disabled"
+        className={filterStyles.optionSelect}
+      >
+        Order A - Z
       </option>
-      <option value="AZ"> A-Z</option>
-      <option value="ZA"> Z-A</option>
+      <option value="AZ" className={filterStyles.optionSelect}>
+        {" "}
+        A - Z
+      </option>
+      <option value="ZA" className={filterStyles.optionSelect}>
+        {" "}
+        Z - A
+      </option>
     </select>
   );
 }

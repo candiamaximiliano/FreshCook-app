@@ -1,5 +1,7 @@
 const express = require('express');
 const { Router } = require('express');
+const controller = require("../controllers/auth.controller");
+const { authJwt } = require("../middlewares");
 const getAllRecipes = require("../services/getAllRecipes");
 const getDetailedRecipe = require("../services/getDetailedRecipe");
 // Importar todos los routers;
@@ -12,7 +14,7 @@ const router = Router();
 router.use(express.json());
 
 
-router.get('/', async (req, res) => {
+router.get('/',/*  controller.allAccess, */ async (req, res) => {
   const { name } = req.query;
   const totalRecipes = await getAllRecipes();
   try {

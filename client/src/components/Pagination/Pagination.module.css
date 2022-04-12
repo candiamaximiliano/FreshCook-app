@@ -1,0 +1,20 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  width: 100%;
+}
+
+.button {
+  background-color: rgba(145, 25, 83, 0.5);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px grey;
+}
+
+.button:hover {
+  background-color: rgba(110, 16, 61, 0.5);
+}

@@ -22,9 +22,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    dishType: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-    },
     score: {
       type: DataTypes.INTEGER,
     },

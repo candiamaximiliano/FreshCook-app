@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../redux/actions/auth";
-import Styles from "./Register.module.css";
+import registerStyles from "./Register.module.css";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -44,64 +44,62 @@ const Register = () => {
   };
 
   return (
-    <div className={Styles.registerContainer}>
-      <div className={Styles.RegisterProfilePictureContainer}>
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className={Styles.RegisterProfilePicture}
-        />
-      </div>
-
-      <form className={Styles.formRegister} onSubmit={handleRegister}>
+    <div className={registerStyles.registerBody}>
+      <form className={registerStyles.registerForm} onSubmit={handleRegister}>
         {!successful && (
           <>
-            <div className={Styles.inputRegisterContainer}>
+            <div className={registerStyles.registerTitle}>Welcome</div>
+            <div className={registerStyles.registerSubtitle}>
+              Let's create your account!
+            </div>
+            <div className={registerStyles.registerInputContainerIc1}>
               <input
-                className={Styles.inputRegister}
+                id="username"
+                className={registerStyles.registerInput}
                 type="text"
                 name="username"
                 value={username}
                 onChange={onChangeUsername}
-                placeholder="Enter your username"
-                // validations={[required, vusername]}
+                placeholder=" Username "
+                autoComplete="off"
               />
+              <div className={registerStyles.registerCut}></div>
             </div>
-
-            <div className={Styles.inputRegisterContainer}>
+            <div className={registerStyles.registerInputContainerIc2}>
               <input
-                className={Styles.inputRegister}
+                id="email"
+                className={registerStyles.registerInput}
                 type="text"
                 name="email"
                 value={email}
                 onChange={onChangeEmail}
-                placeholder="Enter your email"
-                // validations={[required, validEmail]}
+                placeholder="Email"
+                autoComplete="off"
               />
+              <div className={registerStyles.registerCutShort}></div>
             </div>
-
-            <div className={Styles.inputRegisterContainer}>
+            <div className={registerStyles.registerInputContainerIc2}>
               <input
-                className={Styles.inputRegister}
+                id="password"
+                className={registerStyles.registerInput}
                 type="password"
                 name="password"
                 value={password}
                 onChange={onChangePassword}
-                placeholder="Enter your password"
-                // validations={[required, vpassword]}
+                placeholder="Password"
+                autoComplete="off"
               />
+              <div className={registerStyles.registerCut}></div>
             </div>
-
-            <div>
-              <button className={Styles.registerButton}>Sign Up</button>
-            </div>
+            <button type="text" className={registerStyles.registerSubmit}>
+              Sign Up
+            </button>
           </>
         )}
-
         {message && (
-          <>
+          <div>
             <div role="alert">{message}</div>
-          </>
+          </div>
         )}
       </form>
     </div>

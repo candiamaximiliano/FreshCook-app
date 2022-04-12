@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { filterCreated } from "../../redux/actions/filters";
-import Styles from "./Filter.module.css";
+import filterStyles from "./Filter.module.css";
 
 export default function FilterByCreated({ setCurrentPage, setOrder }) {
   const dispatch = useDispatch();
@@ -17,14 +17,17 @@ export default function FilterByCreated({ setCurrentPage, setOrder }) {
   }
 
   return (
-    <select className={Styles.filter} onChange={(e) => handleFilterCreated(e)}>
-      <option value="all" className={Styles.optionSelect}>
+    <select
+      className={filterStyles.nameFilter}
+      onChange={(e) => handleFilterCreated(e)}
+    >
+      <option value="all" className={filterStyles.optionSelect}>
         All
       </option>
-      <option value="created" className={Styles.optionSelect}>
+      <option value="created" className={filterStyles.optionSelect}>
         Created
       </option>
-      <option value="exist" className={Styles.optionSelect}>
+      <option value="exist" className={filterStyles.optionSelect}>
         Existentes
       </option>
     </select>

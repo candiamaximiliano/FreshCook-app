@@ -1,0 +1,14 @@
+.nameFilter {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px grey;
+  padding: 5px;
+  margin: 5px;
+}
+
+.optionSelect {
+  font-size: 0.9em;
+  border: none;
+  padding: 5px;
+  margin: 5px;
+}

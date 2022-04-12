@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { orderByScore } from "../../redux/actions/filters";
-import Styles from "./Filter.module.css";
+import filterStyles from "./Filter.module.css";
 
 export default function FilterByScore({ setCurrentPage, setOrder }) {
   const dispatch = useDispatch();
@@ -16,10 +16,10 @@ export default function FilterByScore({ setCurrentPage, setOrder }) {
   return (
     <select
       onChange={(e) => handleChangeFilter(e)}
-      className={Styles.nameFilter}
+      className={filterStyles.nameFilter}
       defaultValue
     >
-      <option selected={true} disabled="disabled">
+      <option defaultValue={true} disabled="disabled">
         {" "}
         Order By Score
       </option>

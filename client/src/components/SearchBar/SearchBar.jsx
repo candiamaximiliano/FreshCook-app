@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getNameRecipes } from "../../redux/actions/recipes";
 import searchBarStyles from "../SearchBar/SearchBar.module.css";
+import searchIcon from "../../images/search_white_24dp.svg";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -19,8 +20,9 @@ export default function SearchBar() {
   };
 
   return (
-    <div>
+    <div className={searchBarStyles.container}>
       <input
+        className={searchBarStyles.input}
         value={name}
         type="search"
         placeholder="Search recipes..."
@@ -29,12 +31,17 @@ export default function SearchBar() {
         }}
       />
       <button
+        className={searchBarStyles.button}
         type="submit"
         onClick={(e) => {
           handlerSubmit(e);
         }}
       >
-        Search
+        <img
+          className={searchBarStyles.icon}
+          src={searchIcon}
+          alt="searchIcon"
+        />
       </button>
     </div>
   );

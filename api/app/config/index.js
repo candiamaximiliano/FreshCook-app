@@ -25,6 +25,8 @@ module.exports = {
     fourthKey: process.env.API_KEY_4,
     fifthKey: process.env.API_KEY_5,
     sixthKey: process.env.API_KEY_6,
+    seventhKey: process.env.API_KEY_7,
+    eighthKey: process.env.API_KEY_8,
   },
   signature: process.env.SECRET,
   expiration: process.env.EXPIRATION_LOGIN,

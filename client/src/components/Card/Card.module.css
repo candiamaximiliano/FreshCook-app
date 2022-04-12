@@ -1,31 +1,41 @@
 .container {
-  background-color: beige;
+  background-color: #ac3454;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-self: center;
   align-items: center;
-  padding: 5px;
   height: 250px;
+  width: 350px;
 }
 
 .title {
+  color: floralwhite;
   font-size: 0.8em;
   text-align: center;
   margin: 10px;
+  text-shadow: 1px 1px 2px black;
+}
+
+.imageContainer {
+  background-color: black;
+  border-radius: 10px 10px 0px 0px;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
 }
 
 .image {
-  border-radius: 10px;
-  width: 200px;
-  margin: 10px;
+  width: 350px;
 }
 
 .score {
+  color: gold;
   text-decoration: none;
   font-size: 0.5em;
+  margin-top: 10px;
 }
 
 .listDiets {
@@ -34,8 +44,10 @@
   flex-direction: row;
   flex-wrap: wrap;
   font-size: 0.5em;
+  margin-top: 10px;
 }
 
 .diet {
+  color: floralwhite;
   margin: 2px;
 }

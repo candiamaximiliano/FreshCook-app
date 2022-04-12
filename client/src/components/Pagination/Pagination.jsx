@@ -13,9 +13,13 @@ export default function Pagination({
   }
 
   return (
-    <nav>
+    <nav className={paginationStyles.nav}>
       {pageNumbers?.map((number) => (
-        <button key={number} onClick={() => paginationNumber(number)}>
+        <button
+          key={number}
+          onClick={() => paginationNumber(number)}
+          className={paginationStyles.button}
+        >
           {number}
         </button>
       ))}
