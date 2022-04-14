@@ -1,4 +1,4 @@
-const ROLES = ["user", "admin", "moderator"];
+const ROLES = ["user", "admin"];
 const { User } = require("../config/db.config");
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   //Username

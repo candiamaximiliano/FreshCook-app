@@ -4,10 +4,19 @@ const { Recipe, Diet } = require("../config/db.config");
 
 module.exports = async function getDetailedRecipe(id) {
   try {
-    if (id.lenght >= 8) {
-      return await Recipe.findByPk(id);
+    const id2 = `${id}`
+    if (id2.length > 8) {
+      return await Recipe.findByPk(id, {
+        include: {
+        model: Diet,
+        attributes: ['id', 'name'],
+        through: { //comprobacion (mediante)
+          attributes: [],
+        },
+      },
+    })
     } else {
-      const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${config.keyFoodApi.eighthKey}`);
+      const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${config.keyFoodApi.thirdKey}`);
     const recipe = apiUrl.data;
     const info = {
         name: recipe.title,

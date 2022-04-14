@@ -47,9 +47,7 @@ const Login = (props) => {
     <div className={loginStyles.loginBody}>
       <form className={loginStyles.loginForm} onSubmit={handleLogin}>
         <div className={loginStyles.loginTitle}>Welcome</div>
-        <div className={loginStyles.loginSubtitle}>
-          Let's create your account!
-        </div>
+        <div className={loginStyles.loginSubtitle}>Please Login</div>
         <div className={loginStyles.loginInputContainerIc1}>
           <input
             id="username"

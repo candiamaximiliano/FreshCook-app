@@ -47,7 +47,9 @@ export default function Detail() {
         ></p>
       </div>
       <div className={detailStyles.subtitleContainer}>
-        <h3 className={detailStyles.subtitle}>Dish Types:</h3>
+        {details.dishTypes && (
+          <h3 className={detailStyles.subtitle}>Dish Types:</h3>
+        )}
       </div>
       <ul className={detailStyles.uList}>
         {details.dishTypes?.map((dish, index) => (

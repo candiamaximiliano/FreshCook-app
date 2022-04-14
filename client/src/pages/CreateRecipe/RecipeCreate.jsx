@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { postRecipe, getDiets } from "../../redux/actions/recipes";
-import { useDispatch, useSelector } from "react-redux";
 
 import newRecipeStyles from "./RecipeCreate.module.css";
+import { validateName } from "../../helpers/regex";
 
-function validate(input) {
+export function validate(input) {
   let errors = {};
+
   input.name ? (errors.name = "") : (errors.name = "You must name the recipe");
+
   input.summary
     ? (errors.summary = "")
     : (errors.summary = "You must provide a summary");
+
   input.diets.length < 1
     ? (errors.diets = "Choose at least one diet")
     : (errors.diets = "");
+
   if (!input.image.includes("https://") && !input.image.includes("http://")) {
     errors.image = "This isn't a valid image address";
   } else {
     errors.image = "";
   }
+
+  // if (input.score < 1 || input.score > 100) {
+  //   errors.score = "Number required. Must be a number between 1-100";
+  // }
+  // if (input.healthScore < 1 || input.healthScore > 100) {
+  //   errors.healthScore = "Number required. Must be a number between 1-100";
+  // }
+
   return errors;
 }
 
@@ -36,10 +49,11 @@ export default function RecipeCreate() {
     summary: "",
     score: "",
     healthScore: "",
+    step: "",
     stepByStep: [],
-    vegan: "",
-    vegetarian: "",
-    glutenFree: "",
+    vegan: "false",
+    vegetarian: "false",
+    glutenFree: "false",
     diets: [],
   });
 
@@ -74,13 +88,6 @@ export default function RecipeCreate() {
     }
   };
 
-  // const handleDelete = (el) => {
-  //   setInput({
-  //     ...input,
-  //     diets: input.diets.filter((diet) => diet !== el),
-  //   });
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -102,10 +109,11 @@ export default function RecipeCreate() {
         summary: "",
         score: "",
         healthScore: "",
+        step: "",
         stepByStep: [],
-        vegan: "",
-        vegetarian: "",
-        glutenFree: "",
+        vegan: "false",
+        vegetarian: "false",
+        glutenFree: "false",
         diets: [],
       });
     } else {
@@ -206,6 +214,14 @@ export default function RecipeCreate() {
           {errors.healthScore && <p>{errors.healthScore}</p>}
         </div>
         <div className={newRecipeStyles.inputContainer}>
+          <h3>Instruccions:</h3>
+          {/* <ol>
+            {[1, 2]?.map((step, index) => (
+              <>
+                <li key={index}>{step}</li>
+              </>
+            ))}
+          </ol> */}
           <input
             className={newRecipeStyles.input}
             type="text"
@@ -229,11 +245,11 @@ export default function RecipeCreate() {
             }}
             className={newRecipeStyles.select}
           >
-            <option value={true} className={newRecipeStyles.optionSelect}>
-              True
-            </option>
             <option value={false} className={newRecipeStyles.optionSelect}>
               False
+            </option>
+            <option value={true} className={newRecipeStyles.optionSelect}>
+              True
             </option>
           </select>
         </div>
@@ -246,11 +262,11 @@ export default function RecipeCreate() {
             }}
             className={newRecipeStyles.select}
           >
-            <option value={true} className={newRecipeStyles.optionSelect}>
-              True
-            </option>
             <option value={false} className={newRecipeStyles.optionSelect}>
               False
+            </option>
+            <option value={true} className={newRecipeStyles.optionSelect}>
+              True
             </option>
           </select>
         </div>
@@ -263,11 +279,11 @@ export default function RecipeCreate() {
             }}
             className={newRecipeStyles.select}
           >
-            <option value={true} className={newRecipeStyles.optionSelect}>
-              True
-            </option>
             <option value={false} className={newRecipeStyles.optionSelect}>
               False
+            </option>
+            <option value={true} className={newRecipeStyles.optionSelect}>
+              True
             </option>
           </select>
         </div>
@@ -289,12 +305,6 @@ export default function RecipeCreate() {
             </label>
           ))}
         </div>
-        {/* {input.diets?.map((diet, index) => (
-        <div key={index}>
-          <p>{diet}</p>
-          <button onClick={() => handleDelete(diet)}>X</button>
-        </div>
-      ))} */}
         <button className={newRecipeStyles.button} type="submit">
           Create Recipe
         </button>

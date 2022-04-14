@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = async function getApiRecipes() {
 
   try{
-      const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${config.keyFoodApi.eighthKey}&addRecipeInformation=true&number=100`);
+      const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${config.keyFoodApi.thirdKey}&addRecipeInformation=true&number=100`);
       const resultApiRecipes = await apiRecipes.data.results.map(recipe => {
         return {
           id: recipe.id,

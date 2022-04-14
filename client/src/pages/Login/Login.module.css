@@ -7,6 +7,15 @@
   width: 100vw;
 }
 
+p.danger {
+  color: red;
+  font-size: 10px;
+}
+
+input.danger {
+  border: 2px solid red;
+}
+
 .loginForm {
   background-color: #a1a550;
   border-radius: 20px;

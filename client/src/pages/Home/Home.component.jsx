@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Card from "../../components/Card/Card";
 import FilterByAlphabet from "../../components/Filters/FilterByAlphabet";
@@ -9,7 +9,7 @@ import FilterByCreated from "../../components/Filters/FilterByCreated";
 import FilterByScore from "../../components/Filters/FilterByScore";
 import Pagination from "../../components/Pagination/Pagination";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Detail from "../../pages/Detail/Detail";
+// import Detail from "../../pages/Detail/Detail";
 import { getAllRecipes } from "../../redux/actions/recipes";
 
 import Styles from "./Home.module.css";
@@ -53,10 +53,8 @@ const Home = () => {
   const helper = (arr) => {
     let result = [];
     arr?.map((el) => {
-      console.log("hola soy diet del helpermap" + el);
       return result.push(el.name);
     });
-    console.log("hola soy result" + result);
     return result;
   };
 
