@@ -89,11 +89,7 @@ const App = () => {
             <Route path="/unauthorized" element={<Unauthorized />} />
 
             {/* we want to protect these routes */}
-            <Route
-              element={
-                <Protected allowedRoles={[process.env.REACT_APP_USER]} />
-              }
-            >
+            <Route element={<Protected allowedRoles={["ROLE_USER7548"]} />}>
               <Route path="/home" element={<Home />} />
               <Route path="/home/:id" element={<Detail />} />
               <Route path="/profile" element={<Profile />} />

@@ -26,4 +26,14 @@ module.exports = {
   algorithm: process.env.ALGORITHM,
   admin: process.env.ADMIN,
   user: process.env.USER,
+  keyFoodApi: {
+    firstKey: process.env.API_KEY_1,
+    secondKey: process.env.API_KEY_2,
+    thirdKey: process.env.API_KEY_3,
+    fourthKey: process.env.API_KEY_4,
+    fifthKey: process.env.API_KEY_5,
+    sixthKey: process.env.API_KEY_6,
+    seventhKey: process.env.API_KEY_7,
+    eighthKey: process.env.API_KEY_8,
+  },
 };

@@ -4,7 +4,7 @@ const ROLES = require("../config/roles.config");
 function initial() {
   Role.create({
     id: 1,
-    name: ROLES.User,
+    name: ROLES.User_role,
   });
 
   Role.create({
