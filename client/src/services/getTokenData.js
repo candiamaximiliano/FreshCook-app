@@ -1,13 +1,9 @@
-// import jwt from "jsonwebtoken";
-
-const jwt = {
-  decode: "",
-};
+import jwt from "jwt-decode";
 
 const getTokenData = (token) => {
   let data = null;
   try {
-    data = jwt.decode(token);
+    data = jwt(token);
   } catch (error) {
     console.error(error);
   }

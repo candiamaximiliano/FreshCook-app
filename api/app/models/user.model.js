@@ -10,25 +10,13 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    fotoDePerfil: {
-      type: DataTypes.TEXT,
-      defaultValue: "zunzuncito",
-    },
-    nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    apellido: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    usuario: {
+    username: {
       type: DataTypes.STRING,
     },
     email: {
       type: DataTypes.STRING,
     },
-    contraseña: {
+    password: {
       type: DataTypes.STRING,
     },
   });

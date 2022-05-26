@@ -6,16 +6,12 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   // Save User to Database
-  const { fotoDePerfil, nombre, apellido, usuario, email, contraseña } =
-    req.body;
+  const { username, email, password } = req.body;
 
   User.create({
-    fotoDePerfil,
-    nombre,
-    apellido,
-    usuario,
+    username,
     email,
-    contraseña: bcrypt.hashSync(contraseña, 8),
+    password: bcrypt.hashSync(password, 8),
   })
     .then((user) => {
       if (req.body.roles) {
@@ -45,7 +41,7 @@ exports.signup = async (req, res) => {
 exports.signin = (req, res) => {
   User.findOne({
     where: {
-      usuario: req.body.usuario,
+      username: req.body.username,
     },
   })
     .then(async (user) => {
@@ -53,8 +49,8 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
       const passwordIsValid = bcrypt.compareSync(
-        req.body.contraseña,
-        user.contraseña
+        req.body.password,
+        user.password
       );
       if (!passwordIsValid) {
         return res.status(401).send({
@@ -71,11 +67,8 @@ exports.signin = (req, res) => {
       const token = jwt.sign(
         {
           id: user.id,
-          fotoDePerfil: user.fotoDePerfil,
-          usuario: user.usuario,
+          username: user.username,
           email: user.email,
-          nombre: user.nombre,
-          apellido: user.apellido,
           roles: authorities,
         },
         config.secret,
@@ -119,11 +112,8 @@ exports.refreshToken = async (req, res) => {
     let newAccessToken = jwt.sign(
       {
         id: user.id,
-        fotoDePerfil: user.fotoDePerfil,
-        usuario: user.usuario,
+        username: user.username,
         email: user.email,
-        nombre: user.nombre,
-        apellido: user.apellido,
         roles: authorities,
       },
       config.secret,
