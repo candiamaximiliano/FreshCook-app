@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { postRecipe, getDiets } from "../../redux/actions/recipes";
-
+import { v4 as uuidv4 } from "uuid";
 import newRecipeStyles from "./RecipeCreate.module.css";
 import { validateName } from "../../helpers/regex";
+import axios from "axios";
 
 export function validate(input) {
   let errors = {};
@@ -126,6 +127,38 @@ export default function RecipeCreate() {
     dispatch(getDiets());
   }, [dispatch]);
 
+  // Cargar imagen de tipo File
+  const [file, setFile] = useState();
+  const [format, setFormat] = useState("");
+
+  const saveFile = (e) => {
+    setFile(e.target.files[0]);
+    var formatImage = e.target.files[0]?.name.split(".");
+    setFormat(formatImage[formatImage?.length - 1]);
+  };
+
+  const uploadUserFile = async (e) => {
+    const code = uuidv4();
+    // console.log(code)
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("format", format);
+    try {
+      const res = await axios.post(
+        `http://localhost:3001/upload/static/${code}.${format}`,
+        formData
+      );
+      console.log(res);
+      setInput({
+        ...input,
+        [e.target.name]: code + "." + format,
+      });
+      alert("Imagen cargada con Exito", "", "success");
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
   return (
     <div className={newRecipeStyles.container}>
       <header className={newRecipeStyles.header}>
@@ -159,16 +192,18 @@ export default function RecipeCreate() {
         </div>
         <div className={newRecipeStyles.inputContainer}>
           <input
+            type="file"
+            accept="image/x-png,image/jpeg"
             className={newRecipeStyles.input}
-            type="text"
-            value={input.image}
             name="image"
+            placeholder="Image"
             onChange={(e) => {
-              handleChange(e);
+              saveFile(e);
             }}
-            placeholder="Image's URL"
-            autoComplete="off"
-          />
+          />{" "}
+          <button name="imagen" onClick={(e) => uploadUserFile(e)}>
+            Upload
+          </button>
           {errors.image && <p>{errors.image}</p>}
         </div>
         <div className={newRecipeStyles.inputContainer}>

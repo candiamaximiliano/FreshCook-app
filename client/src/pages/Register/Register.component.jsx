@@ -178,8 +178,7 @@ const Register = () => {
             </div>
             <button
               type="submit"
-              onSubmit={handleRegister}
-              disabled={Object.keys(errors).length > 0}
+              // disabled={Object.keys(errors).length > 0}
               className={registerStyles.registerSubmit}
             >
               Sign Up

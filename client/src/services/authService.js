@@ -1,11 +1,15 @@
 import api from "./api";
+import getTokenData from "./getTokenData";
 import TokenService from "./tokenService";
 
-const register = (username, email, password) => {
+const register = ({ name, lastname, username, email, password, image }) => {
   return api.post("/auth/signup", {
+    name,
+    lastname,
     username,
     email,
     password,
+    image,
   });
 };
 
@@ -28,7 +32,8 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  const clientSessionStorage = JSON.parse(sessionStorage.getItem("user"));
+  return getTokenData(clientSessionStorage.accessToken);
 };
 
 const AuthService = {

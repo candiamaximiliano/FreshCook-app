@@ -1,3 +1,4 @@
+import getTokenData from "../../services/getTokenData";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -7,13 +8,14 @@ import {
   REFRESH_TOKEN,
 } from "../actions/types";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const clientSessionStorage = JSON.parse(sessionStorage.getItem("user"));
+const user = getTokenData(clientSessionStorage?.accessToken);
 
 const initialState = user
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: null };
 
-export default function (state = initialState, action) {
+export default function auth(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -55,7 +57,7 @@ export default function (state = initialState, action) {
         ...state,
         user: { ...user, accessToken: payload },
       };
-      
+
     default:
       return state;
   }

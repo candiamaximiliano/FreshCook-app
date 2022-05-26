@@ -10,8 +10,8 @@ import {
 
 import AuthService from "../../services/authService";
 
-export const register = (username, email, password) => (dispatch) => {
-  return AuthService.register(username, email, password).then(
+export const register = (input) => (dispatch) => {
+  return AuthService.register(input).then(
     (response) => {
       dispatch({
         type: REGISTER_SUCCESS,
@@ -80,5 +80,5 @@ export const refreshToken = (accessToken) => (dispatch) => {
   dispatch({
     type: REFRESH_TOKEN,
     payload: accessToken,
-  })
-}
+  });
+};

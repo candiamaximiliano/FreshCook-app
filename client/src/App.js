@@ -1,6 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from "react-router-dom";
+
+import Protected from "./Routes/Protected";
 
 import Login from "./pages/Login/Login.component";
 import Register from "./pages/Register/Register.component";
@@ -11,10 +18,10 @@ import LandindPage from "./pages/LandingPage/LandingPage";
 import Detail from "./pages/Detail/Detail";
 import NotFound from "./pages/NotFound/NotFound";
 import { logout } from "./redux/actions/auth";
-import logoutIcon from "./images/logout_black_24dp.svg"
-import loginIcon from "./images/login_black_24dp.svg"
-import accountCircle from "./images/account_circle_black_24dp.svg"
-import freshCookLogo from "./images/banner.svg"
+import logoutIcon from "./images/logout_black_24dp.svg";
+import accountCircle from "./images/account_circle_black_24dp.svg";
+import freshCookLogo from "./images/banner.svg";
+import Unauthorized from "./pages/Unauthorized";
 
 import "./App.css";
 
@@ -33,20 +40,29 @@ const App = () => {
         <nav className="navbar">
           <div className="logoNav-container">
             <NavLink to={"/home"} className="navigation">
-              <img className="freshCookLogo" src={freshCookLogo} alt="freshCookLogo" />
+              <img
+                className="freshCookLogo"
+                src={freshCookLogo}
+                alt="freshCookLogo"
+              />
             </NavLink>
           </div>
           {currentUser ? (
             <div className="access-container">
               <li className="item-container">
                 <NavLink to={"/profile"} className="navigation">
-                  <img className="accountCircle" src={accountCircle} alt="accountCircle"/>
-                  {currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1)}
+                  <img
+                    className="accountCircle"
+                    src={accountCircle}
+                    alt="accountCircle"
+                  />
+                  {currentUser.username.charAt(0).toUpperCase() +
+                    currentUser.username.slice(1)}
                 </NavLink>
               </li>
               <li className="item-container">
                 <a href="/login" onClick={logOut} className="navigation">
-                  <img src={logoutIcon} alt="logoutIcon"/>
+                  <img src={logoutIcon} alt="logoutIcon" />
                 </a>
               </li>
             </div>
@@ -54,7 +70,7 @@ const App = () => {
             <div className="access-container">
               <li className="item-container">
                 <NavLink to={"/login"} className="navigation">
-                  <img src={loginIcon} alt="loginIcon"/>
+                  Sing In
                 </NavLink>
               </li>
               <li className="item-container">
@@ -70,11 +86,20 @@ const App = () => {
             <Route path="/" element={<LandindPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<Home />} />
-            <Route path='/home/:id' element={<Detail />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path='/recipe' element={<RecipeCreate />} />
-            <Route path='*' element={<NotFound />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+
+            {/* we want to protect these routes */}
+            <Route
+              element={
+                <Protected allowedRoles={[process.env.REACT_APP_USER]} />
+              }
+            >
+              <Route path="/home" element={<Home />} />
+              <Route path="/home/:id" element={<Detail />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/recipe" element={<RecipeCreate />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
           </Routes>
         </div>
       </div>
