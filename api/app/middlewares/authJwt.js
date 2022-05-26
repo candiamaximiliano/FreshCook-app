@@ -1,14 +1,17 @@
 const jwt = require("jsonwebtoken");
+const { admin, user2 } = require("../config");
 const config = require("../config/auth.config");
-const User = require("../models/user.model");
+const { User } = require("../config/db.config");
 const { TokenExpiredError } = jwt;
 
 const catchError = (err, res) => {
   if (err instanceof TokenExpiredError) {
-    return res.status(401).send({ message: "Unauthorized! Access Token was expired!" });
+    return res
+      .status(401)
+      .send({ message: "Unauthorized! Access Token was expired!" });
   }
   return res.sendStatus(401).send({ message: "Unauthorized!" });
-}
+};
 
 const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
@@ -25,16 +28,33 @@ const verifyToken = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-    user.getRoles().then(roles => {
+  User.findByPk(req.userId).then((user) => {
+    user.getRoles().then((roles) => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "admin") {
+        if (roles[i].name === admin) {
           next();
           return;
-        }        
+        }
       }
       res.status(403).send({
-        message: "Require Admin Role!"
+        message: "Require Admin Role!",
+      });
+      return;
+    });
+  });
+};
+
+const isUser = (req, res, next) => {
+  User.findByPk(req.userId).then((user) => {
+    user.getRoles().then((roles) => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].name === user2) {
+          next();
+          return;
+        }
+      }
+      res.status(403).send({
+        message: "Require User Role!",
       });
       return;
     });
@@ -44,6 +64,7 @@ const isAdmin = (req, res, next) => {
 const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
+  isUser: isUser,
 };
 
 module.exports = authJwt;
