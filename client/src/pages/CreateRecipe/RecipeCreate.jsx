@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { postRecipe, getDiets } from "../../redux/actions/recipes";
 import { v4 as uuidv4 } from "uuid";
 import newRecipeStyles from "./RecipeCreate.module.css";
 import { validateName } from "../../helpers/regex";
-import axios from "axios";
+import api from "../../services/api";
+import veganBW from "../../images/VeganBW.png";
+import veganColor from "../../images/VeganColor.png";
+import vegetarianBW from "../../images/VegetarianBW.png";
+import vegetarianColor from "../../images/VegetarianColor.png";
+import glutenFreeBW from "../../images/GlutenFreeBW.png";
+import glutenFreeColor from "../../images/GlutenFreeColor.png";
 
 export function validate(input) {
   let errors = {};
 
-  input.name ? (errors.name = "") : (errors.name = "You must name the recipe");
+  // input.name ? (errors.name = "") : (errors.name = "You must name the recipe");
 
-  input.summary
-    ? (errors.summary = "")
-    : (errors.summary = "You must provide a summary");
+  // input.summary
+  //   ? (errors.summary = "")
+  //   : (errors.summary = "You must provide a summary");
 
-  input.diets.length < 1
-    ? (errors.diets = "Choose at least one diet")
-    : (errors.diets = "");
+  // input.diets.length < 1
+  //   ? (errors.diets = "Choose at least one diet")
+  //   : (errors.diets = "");
 
-  if (!input.image.includes("https://") && !input.image.includes("http://")) {
-    errors.image = "This isn't a valid image address";
-  } else {
-    errors.image = "";
-  }
+  // if (!input.image.includes("https://") && !input.image.includes("http://")) {
+  //   errors.image = "This isn't a valid image address";
+  // } else {
+  //   errors.image = "";
+  // }
 
   // if (input.score < 1 || input.score > 100) {
   //   errors.score = "Number required. Must be a number between 1-100";
@@ -37,6 +43,7 @@ export function validate(input) {
 }
 
 export default function RecipeCreate() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -48,13 +55,12 @@ export default function RecipeCreate() {
     name: "",
     image: "",
     summary: "",
-    score: "",
-    healthScore: "",
+    healthScore: 0,
     step: "",
     stepByStep: [],
-    vegan: "false",
-    vegetarian: "false",
-    glutenFree: "false",
+    vegan: false,
+    vegetarian: false,
+    glutenFree: false,
     diets: [],
   });
 
@@ -95,30 +101,29 @@ export default function RecipeCreate() {
       input.name &&
       input.image &&
       input.summary &&
-      input.score &&
       input.healthScore &&
       input.stepByStep &&
       input.diets
     ) {
       dispatch(postRecipe(input));
       setSuccess(true);
-      alert("Recipe created correctly");
+      // alert("Recipe created correctly");
       setErrors("");
       setInput({
         name: "",
         image: "",
         summary: "",
-        score: "",
-        healthScore: "",
+        healthScore: 0,
         step: "",
         stepByStep: [],
-        vegan: "false",
-        vegetarian: "false",
-        glutenFree: "false",
+        vegan: false,
+        vegetarian: false,
+        glutenFree: false,
         diets: [],
       });
+      navigate("/Home");
     } else {
-      alert("DATA REQUIRED");
+      // alert("DATA REQUIRED");
       setSuccess(false);
     }
   };
@@ -128,36 +133,110 @@ export default function RecipeCreate() {
   }, [dispatch]);
 
   // Cargar imagen de tipo File
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [format, setFormat] = useState("");
+  const [uploadSuccess, setUploadSuccess] = useState("no image selected");
 
-  const saveFile = (e) => {
+  const saveFile = async (e) => {
     setFile(e.target.files[0]);
+    setUploadSuccess(e.target.files[0]?.name);
     var formatImage = e.target.files[0]?.name.split(".");
     setFormat(formatImage[formatImage?.length - 1]);
+    await uploadUserFile(e);
   };
 
   const uploadUserFile = async (e) => {
     const code = uuidv4();
-    // console.log(code)
+    console.log(file);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("format", format);
     try {
-      const res = await axios.post(
-        `http://localhost:3001/upload/static/${code}.${format}`,
-        formData
-      );
-      console.log(res);
+      await api.post(`upload/static/${code}.${format}`, formData);
       setInput({
         ...input,
-        [e.target.name]: code + "." + format,
+        image: code + "." + format,
       });
-      alert("Imagen cargada con Exito", "", "success");
+      // alert("Imagen cargada con Exito", "", "success");
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
     }
   };
+
+  // const [addSteps, setAddSteps] = useState([1]);
+
+  // let i = 0;
+  // const addStep = () => {
+  //   i = i + 1;
+  //   setAddSteps([...addSteps, i]);
+  //   console.log(addSteps);
+  // };
+
+  const inputStep = useRef();
+
+  const [deleted, setDeleted] = useState({
+    wasDelete: false,
+  });
+
+  const addStep = () => {
+    setInput({
+      ...input,
+      stepByStep: [...input.stepByStep, inputStep.current.defaultValue],
+      step: "",
+    });
+    deleted.wasDelete
+      ? setDeleted({
+          wasDelete: false,
+        })
+      : console.log(false);
+  };
+
+  const deleteStep = (value) => (event) => {
+    let stepLength = input.stepByStep.length;
+    let index = input.stepByStep.indexOf(value);
+    input.stepByStep.splice(index, 1);
+    if (stepLength > input.stepByStep.length) {
+      setDeleted({
+        wasDelete: true,
+      });
+    }
+  };
+
+  const handleVegan = () => {
+    input.vegan
+      ? setInput({
+          ...input,
+          vegan: false,
+        })
+      : setInput({
+          ...input,
+          vegan: true,
+        });
+  };
+  const handleVegetarian = () => {
+    input.vegetarian
+      ? setInput({
+          ...input,
+          vegetarian: false,
+        })
+      : setInput({
+          ...input,
+          vegetarian: true,
+        });
+  };
+  const handleGlutenFree = () => {
+    input.glutenFree
+      ? setInput({
+          ...input,
+          glutenFree: false,
+        })
+      : setInput({
+          ...input,
+          glutenFree: true,
+        });
+  };
+
+  const fileInput = useRef(null);
 
   return (
     <div className={newRecipeStyles.container}>
@@ -170,6 +249,7 @@ export default function RecipeCreate() {
           make your own recipe!
         </h1>
       </header>
+      <hr className={newRecipeStyles.hr}></hr>
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -190,25 +270,35 @@ export default function RecipeCreate() {
           />
           {errors.name && <p>{errors.name}</p>}
         </div>
-        <div className={newRecipeStyles.inputContainer}>
+        <div className={newRecipeStyles.inputFileContainer}>
           <input
+            id="inputTag"
             type="file"
             accept="image/x-png,image/jpeg"
-            className={newRecipeStyles.input}
+            className={newRecipeStyles.inputFile}
             name="image"
+            multiple={false}
+            ref={fileInput}
             placeholder="Image"
             onChange={(e) => {
               saveFile(e);
             }}
           />{" "}
-          <button name="imagen" onClick={(e) => uploadUserFile(e)}>
-            Upload
+          <button
+            type="button"
+            className={newRecipeStyles.fileButton}
+            onClick={() => fileInput.current.click()}
+          >
+            <i className="fa fa-2x fa-camera"></i> <br />
+            <br />
+            {uploadSuccess === "no image selected" ? "Select image" : null}{" "}
+            {uploadSuccess === "no image selected" ? null : uploadSuccess}{" "}
           </button>
           {errors.image && <p>{errors.image}</p>}
         </div>
-        <div className={newRecipeStyles.inputContainer}>
-          <input
-            className={newRecipeStyles.input}
+        <div className={newRecipeStyles.inputTextAreaContainer}>
+          <textarea
+            className={newRecipeStyles.inputTextArea}
             type="text-area"
             value={input.summary}
             name="summary"
@@ -221,23 +311,13 @@ export default function RecipeCreate() {
           {errors.summary && <p>{errors.summary}</p>}
         </div>
         <div className={newRecipeStyles.inputContainer}>
+          <label>Health Score:</label>
           <input
             className={newRecipeStyles.input}
-            type="text"
-            value={input.score}
-            name="score"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Score"
-            autoComplete="off"
-          />
-          {errors.score && <p>{errors.score}</p>}
-        </div>
-        <div className={newRecipeStyles.inputContainer}>
-          <input
-            className={newRecipeStyles.input}
-            type="text"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
             value={input.healthScore}
             name="healthScore"
             onChange={(e) => {
@@ -246,83 +326,123 @@ export default function RecipeCreate() {
             placeholder="Health score"
             autoComplete="off"
           />
+          <div className={newRecipeStyles.scoreSpan}>
+            <span className={newRecipeStyles.labelDiet}>
+              {input.healthScore}
+            </span>
+          </div>
           {errors.healthScore && <p>{errors.healthScore}</p>}
         </div>
         <div className={newRecipeStyles.inputContainer}>
-          <h3>Instruccions:</h3>
-          {/* <ol>
-            {[1, 2]?.map((step, index) => (
-              <>
-                <li key={index}>{step}</li>
-              </>
-            ))}
-          </ol> */}
+          <h3 className={newRecipeStyles.labelDiet}>Directions:</h3>
           <input
+            ref={inputStep}
             className={newRecipeStyles.input}
             type="text"
-            value={input.stepByStep}
-            name="stepByStep"
+            value={input.step}
+            name="step"
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="Step by step"
+            placeholder="Write instruction"
             autoComplete="off"
-          />
+          />{" "}
+          <button
+            type="button"
+            className={newRecipeStyles.stepButton}
+            onClick={addStep}
+          >
+            Add direction
+          </button>
+          <ol className={newRecipeStyles.stepList}>
+            {input.stepByStep?.map((s, i) => {
+              return (
+                <>
+                  <br key={uuidv4()} />
+                  <div
+                    className={newRecipeStyles.stepItemContainer}
+                    key={uuidv4()}
+                  >
+                    <div className={newRecipeStyles.buttonItem}>
+                      <li className={newRecipeStyles.stepItem} key={uuidv4()}>
+                        {s}
+                      </li>
+                      <button
+                        type="button"
+                        className={newRecipeStyles.buttonDelete}
+                        onClick={deleteStep(s)}
+                      >
+                        x
+                      </button>{" "}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+          </ol>
           {errors.stepByStep && <p>{errors.stepByStep}</p>}
         </div>
-        <div className={newRecipeStyles.inputContainer}>
-          <label>Vegan:</label>
-          <select
-            name="vegan"
-            rows="5"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            className={newRecipeStyles.select}
+        <label className={newRecipeStyles.labelDiet}>Recipe is:</label>
+        <div className={newRecipeStyles.inputContainerDiet}>
+          <button
+            type="button"
+            className={newRecipeStyles.buttonDiet}
+            onClick={handleVegan}
           >
-            <option value={false} className={newRecipeStyles.optionSelect}>
-              False
-            </option>
-            <option value={true} className={newRecipeStyles.optionSelect}>
-              True
-            </option>
-          </select>
-        </div>
-        <div className={newRecipeStyles.inputContainer}>
-          <label>Vegetarian:</label>
-          <select
-            name="vegetarian"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            className={newRecipeStyles.select}
+            {input.vegan ? (
+              <img
+                className={newRecipeStyles.imgDiet}
+                src={veganColor}
+                alt="vegan"
+              />
+            ) : (
+              <img
+                className={newRecipeStyles.imgDiet}
+                src={veganBW}
+                alt="vegan"
+              />
+            )}
+          </button>
+          <button
+            type="button"
+            className={newRecipeStyles.buttonDiet}
+            onClick={handleVegetarian}
           >
-            <option value={false} className={newRecipeStyles.optionSelect}>
-              False
-            </option>
-            <option value={true} className={newRecipeStyles.optionSelect}>
-              True
-            </option>
-          </select>
-        </div>
-        <div className={newRecipeStyles.inputContainer}>
-          <label>Gluten Free:</label>
-          <select
-            name="glutenFree"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            className={newRecipeStyles.select}
+            {input.vegetarian ? (
+              <img
+                className={newRecipeStyles.imgDiet}
+                src={vegetarianColor}
+                alt="vegetarian"
+              />
+            ) : (
+              <img
+                className={newRecipeStyles.imgDiet}
+                src={vegetarianBW}
+                alt="vegetarian"
+              />
+            )}
+          </button>
+          <button
+            type="button"
+            className={newRecipeStyles.buttonDiet}
+            onClick={handleGlutenFree}
           >
-            <option value={false} className={newRecipeStyles.optionSelect}>
-              False
-            </option>
-            <option value={true} className={newRecipeStyles.optionSelect}>
-              True
-            </option>
-          </select>
+            {input.glutenFree ? (
+              <img
+                className={newRecipeStyles.imgDiet}
+                src={glutenFreeColor}
+                alt="glutenFree"
+              />
+            ) : (
+              <img
+                className={newRecipeStyles.imgDiet}
+                src={glutenFreeBW}
+                alt="glutenFree"
+              />
+            )}
+          </button>
         </div>
-        <label>Diets</label>
+        <label className={newRecipeStyles.labelDiet}>Diets</label>
         <div className={newRecipeStyles.checkboxContainer}>
           {diets?.map((diet) => (
             <label key={diet.id + "label"}>

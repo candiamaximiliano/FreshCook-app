@@ -1,5 +1,5 @@
 .detailContainer{
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 200, 230, 0.5);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -11,16 +11,63 @@
   width: 97vw;
 }
 
+a {
+  text-decoration: none !important;
+  color: floralwhite !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: floralwhite !important;
+  cursor: pointer;
+}
+a:active {
+  text-decoration: none !important;
+  color: floralwhite !important;
+  cursor: pointer;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(172, 52, 84, 0.5);
+  border-radius: 8px;
+  width: 90%;
+  margin-top: 20px;
+}
+
 .title {
   color: floralwhite;
   text-shadow: 1px 1px 2px black;
-  font-size: 1.5em;
+  font-size: 2em;
   margin: 15px;
+}
+
+.first {
+  background-color: rgba(172, 52, 84, 0.5);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.second {
+  background-color: rgba(172, 52, 84, 0.5);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
 }
 
 .imageRecipe {
   border-radius: 10px;
-  width: 50%;
+  width: 200px;
+  height: 160px;
 }
 
 .subtitleContainer {
@@ -33,44 +80,121 @@
 
 .subtitle {
   margin: 0px 0px 0px 20px;
-  font-size: 0.9em;
+  font-size: 1.5em;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black
 }
 
 .parragraphContainer{
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  border-radius: 8px;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
+  align-items: center;
+  width: 60%;
+  margin: 15px;
+  padding: 20px;
+}
+
+hr {
+  width: 90%;
+  margin: 5px;
+  text-shadow: 1px 1px 2px black
 }
 
 .parragraph{
   text-align: justify;
   font-size: 0.8em;
-  margin: 0px 30px;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black
+}
+
+.dietsContainer {
+  background-color: rgba(172, 52, 84, 0.5);
+  border-radius: 8px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .uList{
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  margin-left: 80px;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  margin: 10px;
 }
 
 .dishItem{
   list-style: none;
+  justify-content: flex-start;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black
+}
+
+.subtitleContainerScore {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px;
+  width: 100%;
+  margin-right: -950px;
+}
+
+.parragraphContainerScore{
+  margin: 15px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+
+.scoreSubtitle {
+  width: 100%;
+  font-size: 1.5em;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black
+}
+
+.score {
+  font-size: 1.8em;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black;
+}
+
+.stepSection {
+  background-color: rgba(172, 52, 84, 0.5);
+    border-radius: 8px;
+  width: 90%;
 }
 
 .stepsList{
   list-style-type: decimal;
   margin: 0px 30px;
+  padding-left: 40px ;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .step{
-  margin: 20px 5px;
+  color: floralwhite;
+  margin: 10px 5px;
   text-align: justify;
   font-size: 0.7em;
+  text-shadow: 1px 1px 2px black
 }
 
 .logoSection {
@@ -82,7 +206,7 @@
 }
 
 .logo {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 1);
   border-radius: 50%;
   width: 10%;
   margin: 10px 0px;
@@ -101,12 +225,15 @@
   list-style-type: square;
   margin: 5px 30px;
   font-size: 0.9em;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black
 }
 
 .goBackContainer {
   display: flex;
   width: 100%;
-  margin: 15px;
+  margin: 30px;
+  justify-content: center;
 }
 
 .goBack {

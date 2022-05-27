@@ -1,7 +1,7 @@
 .container {
-  width: 100%;
+  width: 60vw;
   height: 100%;
-  background-color: #97b69e;
+  background-color: rgba(151, 182, 158, 0.8);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -21,6 +21,109 @@
 
 .title {
   font-size: 2em;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black
+}
+
+.stepButton {
+  width: 100px;
+  height: 50px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-left: 250px;
+  cursor: pointer;
+}
+
+.stepItemContainer {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.buttonDelete {
+  width: 20px;
+  color: floralwhite;
+  cursor: pointer;
+  height: 20px;
+  font-size: 0.8em;
+  border-radius: 8px;
+  background-color: rgba(240, 0, 0, 0.3);
+  border: 1px solid rgba(255, 0, 0, 0.7);
+}
+
+.buttonItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.stepItem {
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black;
+  font-size: 1em;
+  margin: 10px 50px;
+}
+
+.fileButton {
+  width: 200px;
+  height: 100px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-left: 200px;
+  cursor: pointer;
+}
+
+.buttonDiet {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.imgDiet {
+  width: 100%;
+  height: 100%;
+}
+
+.labelDiet {
+  font-size: 1.5em;
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black;
+  margin: 20px;
+}
+
+label {
+  color: floralwhite;
+  text-shadow: 1px 1px 2px black;
+}
+
+.hr {
+  width: 90%;
+  margin-left: 45px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  font-size: 0.5em;
+  color: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.inputFile {
+  display: none;
 }
 
 .form {
@@ -31,9 +134,36 @@
   align-items: center;
 }
 
+.inputFileContainer {
+ margin: 5px;
+ width: 80%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ justify-content: center;
+}
+
 .inputContainer {
  margin: 5px;
  width: 80%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ justify-content: center;
+}
+
+.inputContainerDiet {
+ margin: 15px !important;
+ width: 80%;
+ display: flex;
+ flex-direction: row !important;
+ justify-content: space-between !important;
+}
+
+.inputTextAreaContainer {
+ margin: 5px;
+ width: 80%;
+ height: 100px !important;
  display: flex;
  flex-direction: column;
  justify-content: center;
@@ -47,7 +177,24 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
+  height: 100px !important;
+}
+
+.checkbox {
+  width: 10px !important;
+  height: 10px !important;
+  margin: 5px !important;
+}
+
+.inputTextArea {
+  background-color: #b7b9a6;
+  color: floralwhite;
+  width: 100%;
   height: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .input {
@@ -58,6 +205,18 @@
   border: none;
   border-radius: 8px;
   padding: 10px;
+}
+
+.scoreSpan {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
 }
 
 .button {

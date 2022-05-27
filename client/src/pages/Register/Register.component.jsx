@@ -3,28 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../redux/actions/auth";
 
-import { validUsername, validEmail, validPassword } from "../../helpers/regex";
+// import { validUsername, validEmail, validPassword } from "../../helpers/regex";
 import registerStyles from "./Register.module.css";
 
 export function validate(input) {
   let errors = {};
 
-  if (!input.username) {
-    errors.username = "Username is required";
-  }
-  if (!validUsername.test(input.username)) {
-    errors.usernameRegex =
-      "Username must be al least 3 characters and maximum 15 characters";
-  }
-  if (!input.email) {
-    errors.email = "Email is required";
-  }
-  if (!validEmail.test(input.email)) {
-    errors.emailRegex = "Please, put a valid email";
-  }
-  if (!input.password) {
-    errors.password = "Please, enter a password";
-  }
+  // if (!input.username) {
+  //   errors.username = "Username is required";
+  // }
+  // if (!validUsername.test(input.username)) {
+  //   errors.usernameRegex =
+  //     "Username must be al least 3 characters and maximum 15 characters";
+  // }
+  // if (!input.email) {
+  //   errors.email = "Email is required";
+  // }
+  // if (!validEmail.test(input.email)) {
+  //   errors.emailRegex = "Please, put a valid email";
+  // }
+  // if (!input.password) {
+  //   errors.password = "Please, enter a password";
+  // }
   // if (!validPassword.test(input.password)) {
   //   errors.passwordRegex =
   //     "Password must be minimum eight characters, at least one letter, one number and one special character:";

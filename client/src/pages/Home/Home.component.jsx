@@ -102,7 +102,7 @@ const Home = () => {
                     id={recipe.id}
                     name={recipe.name}
                     image={recipe.image}
-                    score={recipe.score}
+                    score={recipe.healthScore}
                     diets={helper(recipe.diets)}
                   />
                 </Link>
@@ -117,7 +117,7 @@ const Home = () => {
                     id={recipe.id}
                     name={recipe.name}
                     image={recipe.image}
-                    score={recipe.score}
+                    score={recipe.healthScore}
                     diets={recipe.diets?.map((diet) => {
                       return diet;
                     })}
@@ -128,6 +128,11 @@ const Home = () => {
           }
         })}
       </div>
+      <Pagination
+        recipesPerPage={recipesPerPage}
+        allRecipes={allRecipes.length}
+        paginationNumber={paginationNumber}
+      />
     </div>
   );
 };

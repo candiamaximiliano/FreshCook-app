@@ -26,6 +26,13 @@ export default function FiltroByDiet({ setCurrentPage, setOrder }) {
       onChange={(e) => handleFilterDiet(e)}
       className={filterStyles.nameFilter}
     >
+      <option
+        defaultValue={true}
+        disabled="disabled"
+        className={filterStyles.optionSelect}
+      >
+        Filter by diet
+      </option>
       <option key={0} value="all" className={filterStyles.optionSelect}>
         All Diets
       </option>

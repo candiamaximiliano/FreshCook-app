@@ -21,6 +21,7 @@ export default function Detail() {
     // }, []);
     axios.get("http://localhost:3001/recipes/" + id).then((response) => {
       setDetails(response.data);
+      console.log(details);
     });
     // return () => {
     //   setDetails(null);
@@ -31,45 +32,99 @@ export default function Detail() {
 
   return (
     <div className={detailStyles.detailContainer}>
-      <h1 className={detailStyles.title}>{details.name}</h1>
-      <img
-        className={detailStyles.imageRecipe}
-        src={details.image}
-        alt="content not found"
-      />
-      <div className={detailStyles.subtitleContainer}>
-        <h3 className={detailStyles.subtitle}>Summary:</h3>
+      <div className={detailStyles.titleContainer}>
+        <h1 className={detailStyles.title}>{details.name}</h1>
       </div>
-      <div className={detailStyles.parragraphContainer}>
-        <p
-          className={detailStyles.parragraph}
-          dangerouslySetInnerHTML={{ __html: details.summary }}
-        ></p>
+      <hr></hr>
+      <div className={detailStyles.first}>
+        <img
+          className={detailStyles.imageRecipe}
+          src={details.image}
+          alt="content not found"
+        />
+        <div className={detailStyles.parragraphContainer}>
+          <p
+            className={detailStyles.parragraph}
+            dangerouslySetInnerHTML={{ __html: details.summary }}
+          ></p>
+        </div>
       </div>
-      <div className={detailStyles.subtitleContainer}>
-        {details.dishTypes && (
-          <h3 className={detailStyles.subtitle}>Dish Types:</h3>
-        )}
+      <hr></hr>
+      <div className={detailStyles.dietsContainer}>
+        <div className={detailStyles.subtitleContainer}>
+          <h3 className={detailStyles.subtitle}>Diets:</h3>
+        </div>
+        <section className={detailStyles.logoSection}>
+          {details.vegetarian ? (
+            <img
+              className={detailStyles.logo}
+              src={vegetarianColor}
+              alt="content not found"
+            />
+          ) : (
+            <img
+              className={detailStyles.logo}
+              src={vegetarianBW}
+              alt="content not found"
+            />
+          )}
+          {details.vegan ? (
+            <img
+              className={detailStyles.logo}
+              src={veganColor}
+              alt="content not found"
+            />
+          ) : (
+            <img
+              className={detailStyles.logo}
+              src={veganBW}
+              alt="content not found"
+            />
+          )}
+          {details.glutenFree ? (
+            <img
+              className={detailStyles.logo}
+              src={glutenFreeColor}
+              alt="content not found"
+            />
+          ) : (
+            <img
+              className={detailStyles.logo}
+              src={glutenFreeBW}
+              alt="content not found"
+            />
+          )}
+        </section>
+        <ul className={detailStyles.dietsList}>
+          {details.diets?.map((diet, index) => (
+            <li className={detailStyles.dietItem} key={index}>
+              {diet}
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className={detailStyles.uList}>
-        {details.dishTypes?.map((dish, index) => (
-          <li className={detailStyles.dishItem} key={index}>
-            {dish}
-          </li>
-        ))}
-      </ul>
-      <div className={detailStyles.subtitleContainer}>
-        <h3 className={detailStyles.subtitle}>Score:</h3>
+      <hr></hr>
+      <div className={detailStyles.second}>
+        <div className={detailStyles.subtitleContainerScore}>
+          {details.dishTypes && (
+            <h3 className={detailStyles.subtitle}>Dish Types:</h3>
+          )}
+        </div>
+        <ul className={detailStyles.uList}>
+          {details.dishTypes?.map((dish, index) => (
+            <li className={detailStyles.dishItem} key={index}>
+              {dish}
+            </li>
+          ))}
+        </ul>
+        <div className={detailStyles.subtitleContainerScore}>
+          <h3 className={detailStyles.scoreSubtitle}>Health Score:</h3>
+        </div>
+        <div className={detailStyles.parragraphContainerScore}>
+          <p className={detailStyles.score}>{details.healthScore}</p>
+        </div>
       </div>
-      <div className={detailStyles.parragraphContainer}>
-        <p className={detailStyles.parragraph}>{details.score}</p>
-      </div>
-      <div className={detailStyles.subtitleContainer}>
-        <h3 className={detailStyles.subtitle}>Health Score:</h3>
-      </div>
-      <div className={detailStyles.parragraphContainer}>
-        <p className={detailStyles.parragraph}>{details.healthScore}</p>
-      </div>
+      <hr></hr>
       <section className={detailStyles.stepSection}>
         <div className={detailStyles.subtitleContainer}>
           <h3 className={detailStyles.subtitle}>Step By Step:</h3>
@@ -82,57 +137,6 @@ export default function Detail() {
           ))}
         </ol>
       </section>
-      <div className={detailStyles.subtitleContainer}>
-        <h3 className={detailStyles.subtitle}>Diets:</h3>
-      </div>
-      <section className={detailStyles.logoSection}>
-        {details.vegetarian ? (
-          <img
-            className={detailStyles.logo}
-            src={vegetarianColor}
-            alt="content not found"
-          />
-        ) : (
-          <img
-            className={detailStyles.logo}
-            src={vegetarianBW}
-            alt="content not found"
-          />
-        )}
-        {details.vegan ? (
-          <img
-            className={detailStyles.logo}
-            src={veganColor}
-            alt="content not found"
-          />
-        ) : (
-          <img
-            className={detailStyles.logo}
-            src={veganBW}
-            alt="content not found"
-          />
-        )}
-        {details.glutenFree ? (
-          <img
-            className={detailStyles.logo}
-            src={glutenFreeColor}
-            alt="content not found"
-          />
-        ) : (
-          <img
-            className={detailStyles.logo}
-            src={glutenFreeBW}
-            alt="content not found"
-          />
-        )}
-      </section>
-      <ul className={detailStyles.dietsList}>
-        {details.diets?.map((diet, index) => (
-          <li className={detailStyles.dietItem} key={index}>
-            {diet}
-          </li>
-        ))}
-      </ul>
       <div className={detailStyles.goBackContainer}>
         <Link to="/home">
           <span className={detailStyles.goBack}>Go back</span>

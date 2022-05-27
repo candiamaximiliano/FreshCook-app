@@ -20,7 +20,7 @@
   justify-content: space-between;
   text-decoration: none;
   margin: 15px;
-  color: black;
+  color: black !important;
 }
 
 .accountCircle {

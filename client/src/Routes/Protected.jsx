@@ -4,7 +4,6 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 const Protected = ({ allowedRoles }) => {
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
   const location = useLocation();
   // const auth = JSON.parse(sessionStorage.getItem("user"));
 
