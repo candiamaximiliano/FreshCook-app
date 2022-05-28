@@ -62,7 +62,7 @@ const App = () => {
               </li>
               <li className="item-container">
                 <a href="/login" onClick={logOut} className="navigation">
-                  <img src={logoutIcon} alt="logoutIcon" />
+                  <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
                 </a>
               </li>
             </div>
@@ -70,12 +70,12 @@ const App = () => {
             <div className="access-container">
               <li className="item-container">
                 <NavLink to={"/login"} className="navigation">
-                  Sing In
+                  <i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>
                 </NavLink>
               </li>
               <li className="item-container">
                 <NavLink to={"/register"} className="navigation">
-                  Sign Up
+                  <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
                 </NavLink>
               </li>
             </div>
