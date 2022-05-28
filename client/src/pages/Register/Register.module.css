@@ -98,3 +98,19 @@
 .registerSubmit:active {
   background-color: #06b;
 }
+
+p.danger {
+  display: flex;
+  color: red;
+  font-size: 1em;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 200px;
+  height: 50px;
+  border-radius: 8px;
+  border: 2px solid red;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  transform: translate(320px, -180px);
+  /* transform: translateY(-350px); */
+}

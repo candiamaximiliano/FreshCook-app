@@ -84,7 +84,9 @@ const Login = (props) => {
         </button>
         {message && (
           <div>
-            <div role="alert">{message}</div>
+            <p className={loginStyles.danger} role="alert">
+              {message}
+            </p>
           </div>
         )}
       </form>
